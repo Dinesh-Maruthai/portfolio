@@ -1,0 +1,48 @@
+/* ── Global Reset & Variables ─────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --clr-bg:          #080b10;
+  --clr-bg-2:        #0d1117;
+  --clr-surface:     #111720;
+  --clr-accent:      #00e5ff;
+  --clr-accent-glow: rgba(0, 229, 255, 0.18);
+  --clr-accent-2:    #ff6b35;
+  --clr-text:        #e8edf5;
+  --clr-muted:       #5a6478;
+  --clr-border:      rgba(255,255,255,0.06);
+
+  --ff-display:  'Bebas Neue', sans-serif;
+  --ff-body:     'DM Sans', sans-serif;
+  --ff-mono:     'Space Mono', monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--clr-bg);
+  color: var(--clr-text);
+  font-family: var(--ff-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--clr-accent);
+  color: var(--clr-bg);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--clr-bg); }
+::-webkit-scrollbar-thumb { background: var(--clr-accent); border-radius: 99px; }
