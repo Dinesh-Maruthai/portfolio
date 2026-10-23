@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import './About.css'
+import resume from '../../resume/Dinesh_M FSD.pdf'
 
 /* ── Skills with proficiency ────────────────────────────────── */
 const SKILLS = [
@@ -221,15 +222,24 @@ export default function About() {
               ))}
             </ul>
 
-            {/* Download CV */}
-            <a href="#" className="about__cv-btn" download>
-              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                <path d="M10 3v10M5 8l5 5 5-5M3 17h14"
-                  stroke="currentColor" strokeWidth="1.8"
-                  strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              Download CV
-            </a>
+            <div className="about__cv-actions">
+              <a href={resume} className="about__cv-btn" download>
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M10 3v10M5 8l5 5 5-5M3 17h14"
+                    stroke="currentColor" strokeWidth="1.8"
+                    strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                Download CV
+              </a>
+              <a
+                href={resume}
+                className="about__cv-btn"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Resume
+              </a>
+            </div>
 
             {/* Stats row */}
             <div className="about__stats">
