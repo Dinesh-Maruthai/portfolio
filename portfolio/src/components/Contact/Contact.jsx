@@ -57,18 +57,41 @@ function useContactForm() {
     const { name, value } = e.target
     setForm(prev => ({ ...prev, [name]: value }))
     if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }))
+    if (status === 'error') setStatus('idle')
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault()
 
-    if (!validate()) return
+    if (status === 'sending' || !validate()) return
     setStatus('sending')
-    // Simulate API call
-    setTimeout(() => setStatus('sent'), 2000)
+    try {
+      await sendContactForm(form)
+      setStatus('sent')
+    } catch {
+      setStatus('error')
+    }
   }
 
   return { form, errors, status, handleChange, handleSubmit }
+}
+
+async function sendContactForm(data) {
+  try {
+    const response = await fetch('/.netlify/functions/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+    const result = await response.json()
+    if (!response.ok) throw new Error(result.message || 'Unable to send your message')
+    return result
+  } catch (error) {
+    console.error('Error sending contact form:', error);
+    throw error;
+  }
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -284,6 +307,9 @@ export default function Contact() {
                       </>
                     )}
                   </button>
+                  {status === 'error' && (
+                    <p role="alert">Unable to send your message. Please try again.</p>
+                  )}
                 </form>
               )}
             </div>
